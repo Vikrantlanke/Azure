@@ -1,6 +1,6 @@
 # Azure Container Registry Retention Policy
 
-To maintain the size of Azure container registry, we should periodically delete stale image data. While some container images deployed into production may require longer-term storage, perhaps others can typically be deleted more quickly. For example, in an automated build and test scenario, our registry can quickly fill with images that might never be deployed and can be purged shortly after completing the build and test pass.
+To maintain a usage of Azure container registry, we should periodically delete stale image data. While some container images deployed into production may require longer-term storage, perhaps others can typically be deleted more quickly. For example, in an automated build and test scenario, our registry can quickly fill with images that might never be deployed and can be purged shortly after completing the build and test pass.
 
 Because we can delete image data in several different ways, it's important to understand how each delete operation affects storage usage. Below are the methods for deleting image:
 
@@ -30,7 +30,7 @@ Steps to follow:
 REGISTRY="<Registry name>"
 ```
 ```bash
-# Modify values in acr-clener-pipeline files
+# Modify values in acr-clener-pipeline.yaml file.
 # If you have custom agent for job execution no then remove pool section
 stages:
   - stage: Pipeline
