@@ -1,0 +1,33 @@
+---
+trigger: none
+schedules:
+  - cron: "0 1 * * *"
+    displayName: "1:00 AM UTC Daily"
+    branches:
+      include: [master]
+    always: true
+
+stages:
+  - stage: Pipeline
+    pool:
+      name: #if you have custom agent pool for execution
+    jobs:
+      - job: Delete_Images_Azure_Container_Registery
+        timeoutInMinutes: 30
+        steps:
+          - task: AzureCLI@2
+            displayName: Display Old Images for Delete
+            inputs:
+              azureSubscription: # Azure Subscription Name
+              scriptType: bash
+              scriptLocation: scriptPath
+              scriptPath: $(Build.SourcesDirectory)/ACR-Cleaner/acr-cleaner.sh
+              arguments: '-n false'
+          - task: AzureCLI@2
+            displayName: Delete Old Images from Repository
+            inputs:
+              azureSubscription: # Azure Subscription Name
+              scriptType: bash
+              scriptLocation: scriptPath
+              scriptPath: $(Build.SourcesDirectory)/ACR-Cleaner/acr-cleaner.sh
+              arguments: '-n true'
